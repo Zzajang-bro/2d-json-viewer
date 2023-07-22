@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>2차원 JSON 보기</title>
+        <style>
+            td { background-color: #ccc; padding-right:20px; padding-left:20px; }
+        </style>
+        <script>
+            const upd = () => {
+                const f = document.getElementById('fileBrowser').files[0]
+                f.text().then((dat)=>{
+                    const d = document.getElementById('screen')
+                    d.innerHTML = ''
+                    const tbl = document.createElement('table')
+                    const obj = JSON.parse(dat)
+                    console.log(obj)
+                    const len = obj.length
+                    for( let i = 0; i != len; i++ ) {
+                        const tr = document.createElement('tr')
+                        console.log(obj[i])
+                        const innerLen = obj[i].length
+                        for( let j = 0; j != innerLen; j++ ) {
+                            const td = document.createElement('td')
+                            td.innerText = obj[i][j]
+                            tr.appendChild(td)
+                        }
+                        tbl.appendChild(tr)
+                    }
+                    d.appendChild(tbl)
+                })
+            }
+        </script>
+    </head>
+    <body>
+        <input type="file" id="fileBrowser" onchange="upd()">
+        <div id="screen"></div>
+    </body>
+</html>
